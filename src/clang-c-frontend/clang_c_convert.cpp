@@ -3225,6 +3225,7 @@ void clang_c_convertert::get_decl_name(
   case clang::Decl::Record:
   case clang::Decl::CXXRecord:
   case clang::Decl::ClassTemplateSpecialization:
+  case clang::Decl::ClassTemplatePartialSpecialization:
   {
     const clang::RecordDecl &rd = static_cast<const clang::RecordDecl &>(nd);
     std::string kind_name = rd.getKindName().str();
