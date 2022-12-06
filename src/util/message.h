@@ -47,6 +47,9 @@ struct messaget
     template <typename... Args>
     static void println(FILE *f, VerbosityLevel lvl, Args &&...args)
     {
+      if(config.options.get_bool_option("quiet"))
+        return;
+
       if(config.options.get_bool_option("color"))
       {
         switch(lvl)
@@ -86,7 +89,6 @@ struct messaget
           fmt::print(f, "[WARNING] ");
         fmt::print(f, std::forward<Args>(args)...);
       }
-
       fmt::print(f, "\n");
     }
 
