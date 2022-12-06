@@ -617,6 +617,18 @@ void goto_symext::run_intrinsic(
     return;
   }
 
+  if(
+    has_prefix(symname, "c:@F@__ESBMC_scanf") ||
+    has_prefix(symname, "c:@F@__ESBMC_fscanf"))
+  {
+    auto &ex_state = art.get_cur_state();
+    if(ex_state.cur_state->guard.is_false())
+      return;
+
+    symex_input(func_call);
+    return;
+  }
+
   if(symname == "c:@F@__ESBMC_builtin_constant_p")
   {
     assert(
