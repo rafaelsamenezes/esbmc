@@ -78,9 +78,9 @@ protected:
   // For class instantiation in C++, we need to adjust the side-effect of constructor
   virtual void adjust_decl_block(codet &code);
 
-  exprt is_gcc_polymorphic_builtin(
+  code_blockt instantiate_gcc_polymorphic_builtin(
     const irep_idt &identifier,
-    const exprt::operandst &arguments);
+    const symbol_exprt &function_symbol);
 
   /**
    * ancillary methods to support the expr/code adjustments above
@@ -88,6 +88,4 @@ protected:
   virtual void align_se_function_call_return_type(
     exprt &f_op,
     side_effect_expr_function_callt &expr);
-};
-
 #endif /* CLANG_C_FRONTEND_CLANG_C_ADJUST_H_ */
