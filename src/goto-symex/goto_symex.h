@@ -458,7 +458,7 @@ protected:
     reachability_treet &art);
 
   /* Handles dereferencing between threads and is used only in data race checks. **/
-  void intrinsic_races_check_dereference(expr2tc &expr);
+  bool intrinsic_races_check_dereference(expr2tc &expr);
 
   /** Walk back up stack frame looking for exception handler. */
   bool symex_throw();

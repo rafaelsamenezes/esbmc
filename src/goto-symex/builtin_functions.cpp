@@ -1526,10 +1526,10 @@ void goto_symext::intrinsic_get_object_size(
     cur_state->guard);
 }
 
-void goto_symext::intrinsic_races_check_dereference(expr2tc &expr)
+bool goto_symext::intrinsic_races_check_dereference(expr2tc &expr)
 {
   if (!options.get_bool_option("data-races-check"))
-    return;
+    return false;
 
   exprt tmp_exprt = migrate_expr_back(expr);
   std::string iden;
@@ -1556,7 +1556,7 @@ void goto_symext::intrinsic_races_check_dereference(expr2tc &expr)
     const symbolt *symbol = new_context.find_symbol(identifier);
 
     if (!symbol)
-      return;
+      return true;
 
     exprt deref("dereference");
     deref.type() = symbol_expr(*symbol).type().subtype();
@@ -1572,7 +1572,7 @@ void goto_symext::intrinsic_races_check_dereference(expr2tc &expr)
                                : "tmp_" + id2string(deref.op0().identifier());
 
     if (new_idt == "tmp_")
-      return;
+      return true;
 
     const symbolt *s = new_context.find_symbol(new_idt);
 
@@ -1610,4 +1610,6 @@ void goto_symext::intrinsic_races_check_dereference(expr2tc &expr)
     else
       migrate_expr(gen_not(deref), expr);
   }
+
+  return false;
 }

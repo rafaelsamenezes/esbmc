@@ -381,7 +381,8 @@ void goto_symext::symex_assert()
   expr2tc tmp = instruction.guard;
   replace_nondet(tmp);
 
-  intrinsic_races_check_dereference(tmp);
+  if (intrinsic_races_check_dereference(tmp))
+    return;
 
   dereference(tmp, dereferencet::READ);
   replace_dynamic_allocation(tmp);
