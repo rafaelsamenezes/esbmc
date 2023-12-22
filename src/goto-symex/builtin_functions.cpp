@@ -1572,7 +1572,7 @@ bool goto_symext::intrinsic_races_check_dereference(expr2tc &expr)
                                : "tmp_" + id2string(deref.op0().identifier());
 
     if (new_idt == "tmp_")
-      return true;
+      return false;
 
     const symbolt *s = new_context.find_symbol(new_idt);
 
