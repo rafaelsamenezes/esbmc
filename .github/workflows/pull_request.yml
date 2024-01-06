@@ -50,7 +50,7 @@ jobs:
     with:
       operating-system: ARM64
       build-flags: '-b DebugOpt -S OFF -B OFF'
-      testing: false
+      testing: true
 
   # Also run a build with frontend linked shared against Ubuntu's clang-13
   build-shared:
