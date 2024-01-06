@@ -189,6 +189,11 @@ void clang_c_languaget::build_compiler_args(const std::string &tmp_dir)
   config.options.get_option("sysroot", sysroot);
   if (!sysroot.empty())
     compiler_args.push_back("--sysroot=" + sysroot);
+  else if (
+    const char *new_sysroot = getenv(
+      ("ESBMC_SYSROOT" + std::to_string(config.ansi_c.word_size) + "_" +
+      config.ansi_c.target.to_string()).c_str()))
+    compiler_args.emplace_back("--sysroot=" + std::string(new_sysroot));
   else
     compiler_args.emplace_back("--sysroot=" ESBMC_C2GOTO_SYSROOT);
 
