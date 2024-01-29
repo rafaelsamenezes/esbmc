@@ -217,7 +217,7 @@ public:
     ai_baset::clear();
   }
 
-protected:
+
   typedef std::unordered_map<
     goto_programt::const_targett,
     domainT,
@@ -225,6 +225,8 @@ protected:
     pointee_address_equalt>
     state_mapt;
   state_mapt state_map;
+
+protected:
 
   // this one creates states, if need be
   virtual statet &get_state(goto_programt::const_targett l) override

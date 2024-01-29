@@ -109,12 +109,17 @@ inline void instrument_symbol_constraints(
   goto_functiont &goto_function)
 {
   std::vector<expr2tc> symbol_constraints;
+  auto state_iterator = interval_analysis.state_map.find(it);
+
+  // We may be trying to instrument an unreachable state. Skip the instruction
+  if (state_iterator == interval_analysis.state_map.end())
+    return;
   const interval_domaint &d = interval_analysis[it];
   for (const auto &symbol_expr : symbols)
   {
     expr2tc tmp = d.make_expression(symbol_expr);
     if (!is_true(tmp))
-      symbol_constraints.push_back(tmp);
+     symbol_constraints.push_back(tmp);
   }
 
   if (!symbol_constraints.empty())
