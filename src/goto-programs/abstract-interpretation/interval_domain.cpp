@@ -943,6 +943,20 @@ void interval_domaint::transform(
   }
 
   case FUNCTION_CALL:
+    {
+      // We have to deal with function pointers.
+      const code_function_call2t &function_call =
+      to_code_function_call2t(from->code);
+      if (is_symbol2t(function_call.function))
+        break;
+
+      // We do not have a points-to here, let's assume a reset in global state
+      make_top();
+
+      // Note: we could try to optimize and only havoc global variables, this is only
+      // sound for functions without arguments though.
+      return;
+    }
   case END_FUNCTION:
   case ATOMIC_BEGIN:
   case ATOMIC_END:
