@@ -260,6 +260,14 @@ bool ai_baset::do_function_call_rec(
 
     new_data = do_function_call(l_call, l_return, goto_functions, it, ns);
   }
+  else
+    {
+      // TODO: We really should have a points-to for the AI.
+      get_state(l_return);
+      std::unique_ptr<statet> tmp_state(make_temporary_state(get_state(l_call)));
+      tmp_state->transform(l_call, l_return, *this, ns);
+      return merge(*tmp_state, l_call, l_return);
+    }
 
   return new_data;
 }
