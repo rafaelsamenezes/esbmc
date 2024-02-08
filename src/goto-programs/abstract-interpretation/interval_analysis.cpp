@@ -272,6 +272,7 @@ void interval_analysis(
   const optionst &options,
   const INTERVAL_INSTRUMENTATION_MODE instrument_mode)
 {
+  return;
   // TODO: add options for instrumentation mode
   ait<interval_domaint> interval_analysis;
   interval_domaint::set_options(options);
