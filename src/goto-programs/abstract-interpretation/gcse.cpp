@@ -309,6 +309,8 @@ bool goto_cse::runOnFunction(std::pair<const dstring, goto_functiont> &F)
   if (!F.second.body_available)
     return false;
 
+  log_status("Parsing Function {}", F.first.as_string());
+
   // 1. Let's count expressions, the idea is to go through all program statements
   //    and check if any sub-expr is already available
   std::unordered_set<expr2tc, irep2_hash> expressions_set;
