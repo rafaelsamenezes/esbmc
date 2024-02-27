@@ -1252,12 +1252,6 @@ tvt interval_domaint::eval_boolean_expression(
   const interval_domaint &id)
 {
   // TODO: for now we will only support integer expressions (no mix!)
-  if (enable_wrapped_intervals)
-  {
-    log_debug("interval", "[eval_boolean_expression] Disabled for wrapped");
-    return tvt(tvt::TV_UNKNOWN);
-  }
-
   if (contains_float(cond))
   {
     log_debug(
