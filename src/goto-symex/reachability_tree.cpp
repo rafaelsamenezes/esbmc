@@ -161,7 +161,7 @@ bool reachability_treet::step_next_state()
 unsigned int
 reachability_treet::decide_ileave_direction(execution_statet &ex_state)
 {
-  unsigned int tid = 0, user_tid = 0;
+  unsigned int tid = 1, user_tid = 0;
 
   if (interactive_ileaves)
   {
@@ -186,6 +186,12 @@ reachability_treet::decide_ileave_direction(execution_statet &ex_state)
 
     break;
   }
+
+    // All sub threads have been explored at this state, now switch back to main thread.
+  if (
+    tid >= ex_state.threads_state.size() && check_thread_viable(0, true) &&
+    ex_state.dfs_explore_thread(0))
+    tid = 0;
 
   if (interactive_ileaves && tid != user_tid)
   {
