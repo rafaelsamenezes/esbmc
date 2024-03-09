@@ -961,7 +961,7 @@ void execution_statet::calculate_mpor_constraints()
   // Start new dependency chain for this thread. Default to there being no
   // relation.
   for (unsigned int i = 0; i < new_dep_chain.size(); i++)
-    new_dep_chain[active_thread][i] = -1;
+    new_dep_chain[i][active_thread] = -1;
 
   // This thread depends on this thread.
   new_dep_chain[active_thread][active_thread] = 1;
