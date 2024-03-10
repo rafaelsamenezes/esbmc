@@ -986,7 +986,7 @@ void execution_statet::calculate_mpor_constraints()
   //  dependancy_chain contains the state from the previous transition taken;
   //  here we update it to reflect the latest transition, and make a decision
   //  about progress later.
-  std::vector<std::vector<int>>  = dependancy_chain;
+  std::vector<std::vector<int>> new_dep_chain = dependancy_chain;
 
   // Start new dependency chain for this thread. Default to there being no
   // relation.
