@@ -917,27 +917,57 @@ bool execution_statet::check_mpor_dependancy(unsigned int j, unsigned int l)
   // don't intersect with this transitions write(s).
 
   // Double write intersection
+  std::unordered_set<std::string> avtive_thread_last_writes;
+  std::unordered_set<std::string> avtive_thread_last_reads;
+  std::unordered_set<std::string> previous_thread_last_writes;
+  std::unordered_set<std::string> previous_thread_last_reads;
   for (std::set<expr2tc>::const_iterator it = thread_last_writes[j].begin();
        it != thread_last_writes[j].end();
        it++)
-    if (thread_last_writes[l].find(*it) != thread_last_writes[l].end())
-      return true;
-
-  // This read what that wrote intersection
+  {
+    avtive_thread_last_writes.insert(to_symbol2t(*it).thename.as_string());
+  }
   for (std::set<expr2tc>::const_iterator it = thread_last_reads[j].begin();
        it != thread_last_reads[j].end();
        it++)
-    if (thread_last_writes[l].find(*it) != thread_last_writes[l].end())
-      return true;
+  {
+    avtive_thread_last_reads.insert(to_symbol2t(*it).thename.as_string());
+  }
 
-  // We wrote what that reads intersection
-  for (std::set<expr2tc>::const_iterator it = thread_last_writes[j].begin();
-       it != thread_last_writes[j].end();
+  for (std::set<expr2tc>::const_iterator it = thread_last_writes[l].begin();
+       it != thread_last_writes[l].end();
        it++)
-    if (thread_last_reads[l].find(*it) != thread_last_reads[l].end())
-      return true;
+  {
+    previous_thread_last_writes.insert(to_symbol2t(*it).thename.as_string());
+  }
+  for (std::set<expr2tc>::const_iterator it = thread_last_reads[l].begin();
+       it != thread_last_reads[l].end();
+       it++)
+  {
+    previous_thread_last_reads.insert(to_symbol2t(*it).thename.as_string());
+  }
 
-  // No check for read-read intersection, it doesn't affect anything
+  for (const auto &last_write : avtive_thread_last_writes)
+  {
+    if (
+      previous_thread_last_writes.find(last_write) !=
+        previous_thread_last_writes.end() ||
+      previous_thread_last_reads.find(last_write) !=
+        previous_thread_last_reads.end())
+    {
+      return true;
+    }
+  }
+
+  for (const auto &last_read : avtive_thread_last_reads)
+  {
+    if (
+      previous_thread_last_writes.find(last_read) !=
+      previous_thread_last_writes.end())
+    {
+      return true;
+    }
+  }
   return false;
 }
 
