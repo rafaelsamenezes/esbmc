@@ -6,5 +6,6 @@ new_unit_test(replace_symboltest "replace_symbol.test.cpp" "util_esbmc;irep2;big
 new_unit_test(ireptest "irep.test.cpp" "util_esbmc;irep2;bigint")
 new_unit_test(filesystemtest "filesystem.test.cpp" "filesystem")
 new_unit_test(ieeefloattest "ieee_float.test.cpp" "util_esbmc;bigint")
+new_unit_test(intervaltest "interval_test.test.cpp" "interval_state")
 # Running the fuzzer normally would overflow the /tmp with files.
 new_fast_fuzz_test(filesystemfuzz "filesystem.fuzz.cpp" "filesystem")

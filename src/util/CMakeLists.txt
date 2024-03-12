@@ -45,3 +45,6 @@ target_include_directories(util_esbmc
 target_link_libraries(util_esbmc PUBLIC irep2 fmt::fmt ${Boost_LIBRARIES})
 
 target_link_libraries(algorithms gotoprograms)
+
+add_library(interval_state interval_state.cpp)
+target_link_libraries(interval_state PUBLIC util_esbmc fmt::fmt bigint)
