@@ -1044,7 +1044,6 @@ bool interval_domaint::join_intervals(const std::shared_ptr<Interval> &after, st
   const Interval before = *dst;
   Interval joined = *dst;
   joined.join(*after);
-  //dst->join(*after);
   if (before != joined)
   {
 
