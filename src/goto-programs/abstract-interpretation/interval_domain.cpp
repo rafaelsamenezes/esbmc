@@ -49,7 +49,8 @@ void interval_domaint::update_symbol_interval(
   const symbol2t &sym,
   const integer_intervalt value)
 {
-  intervals.erase(sym.thename);
+  if (value.is_top())
+    return;
   intervals[sym.thename] = std::make_shared<integer_intervalt>(value); 
 }
 
@@ -58,7 +59,8 @@ void interval_domaint::update_symbol_interval(
   const symbol2t &sym,
   const real_intervalt value)
 {
-  intervals.erase(sym.thename);
+  if (value.is_top())
+    return;
   intervals[sym.thename] = std::make_shared<real_intervalt>(value);
 }
 
@@ -67,6 +69,8 @@ void interval_domaint::update_symbol_interval(
   const symbol2t &sym,
   const wrapped_interval value)
 {
+  if (value.is_top())
+    return;
   intervals[sym.thename] = std::make_shared<wrapped_interval>(value);
 }
 
