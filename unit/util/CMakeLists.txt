@@ -9,3 +9,4 @@ new_unit_test(ieeefloattest "ieee_float.test.cpp" "util_esbmc;bigint")
 new_unit_test(intervaltest "interval_test.test.cpp" "interval_state")
 # Running the fuzzer normally would overflow the /tmp with files.
 new_fast_fuzz_test(filesystemfuzz "filesystem.fuzz.cpp" "filesystem")
+new_fuzz_test(intervalfuzz "interval_test.fuzz.cpp" "interval_state")
