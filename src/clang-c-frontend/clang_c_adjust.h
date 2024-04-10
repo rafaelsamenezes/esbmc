@@ -63,6 +63,7 @@ protected:
   adjust_function_call_arguments(side_effect_expr_function_callt &expr);
   void do_special_functions(side_effect_expr_function_callt &expr);
   void adjust_operands(exprt &expr);
+  virtual void adjust_if(exprt &expr);
 
   /**
    * methods for code (codet) adjustment
@@ -92,6 +93,8 @@ protected:
   virtual void align_se_function_call_return_type(
     exprt &f_op,
     side_effect_expr_function_callt &expr);
+
+  virtual void adjust_reference(exprt &expr);
 };
 
 #endif /* CLANG_C_FRONTEND_CLANG_C_ADJUST_H_ */

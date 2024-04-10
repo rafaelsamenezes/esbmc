@@ -1363,9 +1363,6 @@ public:
 #endif
 };
 
-//template <class Key, class T, class Compare>
-//void swap(map<Key, T, Compare> &, vector<Key, T, Compare> &);
-
 template <class Key, class T, class Compare = less<Key> >
 class multimap
 {
