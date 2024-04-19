@@ -41,6 +41,7 @@
 #include <atomic>
 #include <goto-symex/witnesses.h>
 
+#include <util/ssa_intervals.h>
 bmct::bmct(goto_functionst &funcs, optionst &opts, contextt &_context)
   : options(opts), context(_context), ns(context)
 {
@@ -49,6 +50,9 @@ bmct::bmct(goto_functionst &funcs, optionst &opts, contextt &_context)
 
   // The next block will initialize the algorithms used for the analysis.
   {
+    // Try to remove uneeded assertions
+    algorithms.emplace_back(std::make_unique<ssa_intervals>());
+    
     if (opts.get_bool_option("no-slice"))
       algorithms.emplace_back(std::make_unique<simple_slice>());
     else
