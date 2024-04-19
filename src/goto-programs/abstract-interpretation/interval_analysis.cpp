@@ -93,6 +93,13 @@ void optimize_function(
   {
     const interval_domaint &d = interval_analysis[i_it];
 
+    // Dead Code Removal
+    if (d.is_bottom())
+    {
+      i_it->make_skip();
+      continue;
+    }
+    
     // Singleton Propagation
     optimize_expression(i_it->code, d);
     optimize_expression(i_it->guard, d);
